@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=64"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devnet_prints"
+version = "0.0.1"
+description = "Devnet print formats for Frappe and ERPNext"
+requires-python = ">=3.10"
+readme = "README.md"
+
+[tool.setuptools.packages.find]
+include = ["devnet_prints*"]
+
+[tool.setuptools.package-data]
+devnet_prints = ["modules.txt", "patches.txt", "fixtures/*.json", "catalog.json", "templates/*.html"]

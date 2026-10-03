@@ -1,0 +1,91 @@
+{% set data = get_print_context(doc, format_name) %}
+{% macro fields(items) -%}
+<table class="dp-details"><tbody>{% for pair in items | batch(2) %}<tr>
+{% for item in pair %}<td><div class="dp-label">{{ item.label | e }}</div><div class="dp-value">{{ item.value | e }}</div></td>{% endfor %}
+{% if pair | length == 1 %}<td class="dp-unused"></td>{% endif %}</tr>{% endfor %}</tbody></table>
+{%- endmacro %}
+{% macro notes(items) -%}
+{% for note in items %}<div class="dp-note"><h3>{{ note.title | e }}</h3><div>{{ note.value | e }}</div></div>{% endfor %}
+{%- endmacro %}
+<style>
+@page { size: A4; margin: 13mm 12mm; }
+.print-format { box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; font-size: 11px; line-height: 1.45; color: #243544; }
+@media screen {
+  .print-format { width: 100% !important; max-width: 210mm !important; padding: 13mm 12mm !important; margin: 0 auto !important; }
+}
+@media screen and (max-width: 600px) {
+  .print-format { padding: 20px !important; }
+}
+@media print {
+  .print-format { width: 100% !important; max-width: none !important; min-height:0; padding: 0 !important; }
+}
+.dp-document { --dp-ink: #183948; --dp-accent: #207b82; width:100%; min-width:0; overflow-wrap:anywhere; }
+.dp-document, .dp-document * { box-sizing:border-box; }
+.dp-document .dp-heading { width:100%; table-layout:fixed; border-collapse:collapse; margin-bottom:0; border-bottom:3px solid #207b82; }
+.dp-document .dp-heading td { border:0; vertical-align:top; padding:0 0 13px !important; }
+.dp-document .dp-heading td:last-child { width:30%; text-align:right; padding-left:14px !important; }
+.dp-document .dp-eyebrow { font-size:9px; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; color:#207b82; margin-bottom:7px; }
+.dp-document h1 { font-size:23px; line-height:1.18; letter-spacing:-.4px; color:#183948; margin:0 0 6px; font-weight:700; }
+.dp-document .dp-subtitle { font-size:9px; color:#637783; }
+.dp-document .dp-record-id { font-size:11px; font-weight:700; overflow-wrap:anywhere; }
+.dp-document .dp-label { font-size:8px; letter-spacing:.65px; text-transform:uppercase; color:#657b85; margin-bottom:4px; }
+.dp-document .dp-status { display:inline-block; font-size:8px; letter-spacing:.8px; font-weight:700; border:1px solid #b5c9d1; color:#183948; padding:5px 8px; margin-top:9px; border-radius:3px; background:#f1f6f7; }
+.dp-document .dp-status.cancelled { color:#973f3f; border-color:#deb4b4; background:#fff4f4; }
+.dp-document .dp-demo { font-size:9px; border-left:3px solid #b28027; color:#7c5a25; background:#fff9ed; padding:7px 9px; margin:12px 0; }
+.dp-document h2 { font-size:11px; text-transform:uppercase; letter-spacing:.9px; color:#183948; margin:18px 0 7px; padding-bottom:6px; border-bottom:1px solid #a8c1ca; font-weight:700; }
+.dp-document h3 { font-size:10px; margin:0 0 5px; color:#183948; font-weight:700; }
+.dp-document .dp-details { border-collapse:collapse; table-layout:fixed; width:100%; margin:0; }
+.dp-document .dp-details td { width:50%; vertical-align:top; border:0; border-bottom:1px solid #e1e9ec; padding:8px 10px 8px 0 !important; overflow-wrap:anywhere; }
+.dp-document .dp-details td:nth-child(2) { padding-left:16px !important; }
+.dp-document .dp-value { font-size:10px; color:#243544; white-space:pre-wrap; }
+.dp-document .dp-count { float:right; font-size:8px; letter-spacing:0; font-weight:400; color:#637783; text-transform:none; }
+.dp-document .dp-grid { width:100%; border-collapse:collapse; table-layout:fixed; margin:8px 0 12px; font-size:10px; }
+.dp-document .dp-grid th { color:#183948; background:#edf4f5 !important; border:1px solid #c3d4da; padding:7px 6px !important; font-size:8px; font-weight:700; text-align:left; overflow-wrap:anywhere; }
+.dp-document .dp-grid td { border:1px solid #d8e2e6; padding:7px 6px !important; vertical-align:top; overflow-wrap:anywhere; white-space:pre-wrap; }
+.dp-document .dp-keep { break-inside:avoid; page-break-inside:avoid; }
+.dp-document .dp-grid tbody tr:nth-child(even) { background:#f9fbfc; }
+.dp-document .dp-grid td { word-break:normal; }
+.dp-document .dp-grid .dp-number { width:24px; text-align:center; color:#657b85; }
+.dp-document .dp-note { margin:12px 0; border-left:2px solid #a8c1ca; padding:2px 0 2px 10px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.dp-document .dp-caption { font-size:8px; color:#657b85; margin:5px 0; }
+.dp-document .dp-signatures { border-collapse:collapse; width:100%; margin-top:23px; table-layout:fixed; }
+.dp-document .dp-signatures td { border:0; width:33.33%; vertical-align:bottom; padding:20px 16px 0 0 !important; }
+.dp-document .dp-sign-line { border-top:1px solid #a8bbc4; padding-top:6px; font-size:8px; color:#657b85; }
+.dp-document .dp-footer { border-top:1px solid #d8e2e6; color:#73858d; font-size:8px; margin-top:18px; padding-top:7px; }
+.dp-document thead { display:table-header-group; }
+.dp-document tr { break-inside:avoid; page-break-inside:avoid; }
+.dp-document h2,.dp-document h3 { break-after:avoid; page-break-after:avoid; }
+.dp-document .dp-heading,.dp-document .dp-signatures { break-inside:avoid; }
+@media print { .dp-document th,.dp-document .dp-demo,.dp-document .dp-status { -webkit-print-color-adjust:exact; print-color-adjust:exact; } }
+</style>
+<div class="dp-document">
+<table class="dp-heading"><tbody><tr><td>
+{% if data.company %}<div class="dp-eyebrow">{{ data.company | e }}</div>{% endif %}
+<h1>{{ format_title | e }}</h1><div class="dp-subtitle">{{ doc.doctype | e }}</div>
+</td><td><div class="dp-label">Document reference</div><div class="dp-record-id">{{ doc.name | e }}</div>
+{% if doc.docstatus == 2 %}<div class="dp-status cancelled">CANCELLED</div>
+{% elif doc.meta.is_submittable %}<div class="dp-status">{{ 'SUBMITTED' if doc.docstatus == 1 else 'DRAFT' }}</div>
+{% elif doc.get('status') %}<div class="dp-status">{{ doc.status | e }}</div>
+{% else %}<div class="dp-status">MASTER RECORD</div>{% endif %}
+</td></tr></tbody></table>
+{% if 'DEMO' in doc.name.upper() %}<div class="dp-demo">DEMONSTRATION · This saved record contains sample data for print testing.</div>{% endif %}
+{% if data.notice %}<div class="dp-caption">{{ data.notice | e }}</div>{% endif %}
+{% for section in data.sections %}<h2>{{ section.title | e }}</h2>{{ fields(section.fields) }}{% endfor %}
+{% for table in data.tables %}
+<h2>{{ table.title | e }}<span class="dp-count">{{ table.count }} recorded {{ 'row' if table.count == 1 else 'rows' }}</span></h2>
+{% for band in table.bands %}{% if table.bands | length > 1 %}<div class="dp-caption">Columns {{ loop.index }} of {{ table.bands | length }} · Row numbers match across tables.</div>{% endif %}
+<table class="dp-grid{{ ' dp-keep' if table.count <= 15 else '' }}"><thead><tr><th class="dp-number">#</th>{% for column in band.columns %}<th>{{ column.label | e }}</th>{% endfor %}</tr></thead><tbody>
+{% for row in band.rows %}<tr><td class="dp-number">{{ row.number }}</td>{% for value in row['values'] %}<td>{{ value | e if value is not none else '—' }}</td>{% endfor %}</tr>{% endfor %}
+</tbody></table>{% endfor %}{% endfor %}
+{{ notes(data.notes) }}
+{% for linked in data.related %}<h2>{{ linked.title | e }}</h2>{{ fields(linked.fields) }}{{ notes(linked.notes) }}{% endfor %}
+{% if data.additional %}<h2>Additional recorded details</h2>{{ fields(data.additional) }}{% endif %}
+{% if data.stock %}<h2>Current stock position<span class="dp-count">{{ data.stock | length }} warehouse {{ 'row' if data.stock | length == 1 else 'rows' }}</span></h2>
+<div class="dp-caption">Current saved stock summary at print time.</div>
+<table class="dp-grid"><thead><tr><th>Item</th><th>Warehouse</th><th>Actual quantity</th><th>Reserved</th><th>Ordered</th><th>Projected</th></tr></thead><tbody>
+{% for row in data.stock %}<tr><td>{{ row.item_code | e }}</td><td>{{ row.warehouse | e }}</td><td>{{ row.actual_qty }}</td><td>{{ row.reserved_qty }}</td><td>{{ row.ordered_qty }}</td><td>{{ row.projected_qty }}</td></tr>{% endfor %}
+</tbody></table>{% endif %}
+{% if data.attachments %}<h2>Supporting documents</h2><table class="dp-grid"><thead><tr><th>#</th><th>Saved attachment</th></tr></thead><tbody>{% for file in data.attachments %}<tr><td class="dp-number">{{ loop.index }}</td><td>{{ file.file_name | e }}</td></tr>{% endfor %}</tbody></table>{% endif %}
+<table class="dp-signatures"><tbody><tr><td><div class="dp-sign-line">Prepared by · Signature / Date</div></td><td><div class="dp-sign-line">Reviewed by · Signature / Date</div></td><td><div class="dp-sign-line">Approved by · Signature / Date</div></td></tr></tbody></table>
+<div class="dp-footer">{{ doc.name | e }} · Last saved {{ frappe.utils.format_datetime(doc.modified) | e }} · Devnet Prints</div>
+</div>

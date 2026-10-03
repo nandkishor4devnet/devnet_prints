@@ -1,0 +1,56 @@
+[
+  {
+    "name": "DP - Form 13A: Batch Lot Tracking",
+    "doctype": "Work Order",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - Packing Daily Production Sheet",
+    "doctype": "Stock Entry",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - Form 14: Product QA & Release",
+    "doctype": "Quality Inspection",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - QA Form 4E: Dispatch Finished Products",
+    "doctype": "Delivery Note",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - GMP Form 3: Customer Complaint Log",
+    "doctype": "Issue",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - Quality Action Register",
+    "doctype": "Quality Action",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - GMP Form 6B: Maintenance Checklist",
+    "doctype": "Maintenance Visit",
+    "variant": "",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - GMP Form 7: Equipment Calibration Log",
+    "doctype": "Asset Maintenance Log",
+    "variant": "Calibration",
+    "reading_keywords": []
+  },
+  {
+    "name": "DP - HACCP & RSPO Audit Report",
+    "doctype": "Quality Review",
+    "variant": "",
+    "reading_keywords": []
+  }
+]
